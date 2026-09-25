@@ -26,10 +26,6 @@
     a.textContent = email;
     a.href = "mailto:" + email;
   });
-  $$("[data-location]").forEach(function (el) { el.textContent = S.location || ""; });
-  $$("[data-location-suffix]").forEach(function (el) {
-    if (S.location) el.textContent = "in " + S.location;
-  });
   ["instagram", "facebook"].forEach(function (key) {
     var li = $('[data-social="' + key + '"]');
     if (li && S[key]) {

@@ -1,6 +1,6 @@
 # 🐼🚲 Pedal It Forward
 
-The website for **Pedal It Forward**. People donate broken bikes, we fix them up and give them to people who need a ride, and we teach anyone how to fix bikes themselves.
+The website for **Pedal It Forward**, Emmett's bar mitzvah project for the Wyngate community. People donate bikes they don't need, Emmett fixes them up and gives them to people who need one, and he teaches people how to fix bikes themselves.
 
 It's a plain HTML/CSS/JavaScript site. There's nothing to install and no build step.
 
@@ -9,6 +9,7 @@ It's a plain HTML/CSS/JavaScript site. There's nothing to install and no build s
 | Section | What it does |
 |---|---|
 | **Hero** | Our panda mascot riding a bike, plus buttons to give or get a bike |
+| **Hi, I'm Emmett!** | A short note from Emmett about his mitzvah project |
 | **How it works** | The 4 steps: you bring a bike → we fix it → it finds a new rider → they pedal it forward |
 | **Give a bike** | What we accept, plus a donation form |
 | **Get a bike** | A request form for people who need a bike |
@@ -21,8 +22,7 @@ It's a plain HTML/CSS/JavaScript site. There's nothing to install and no build s
 
 Almost everything you'll change lives in **`js/site-config.js`**:
 
-- **`email`**: where form messages go. **Change this first!** It's a placeholder right now.
-- **`location`**: your town.
+- **`email`**: where form messages go. **Change this first!** It's a placeholder right now. Use an address a parent can see, since it shows on the public site.
 - **`donateUrl`**: your PayPal / Venmo / GoFundMe / Zeffy link. If it's empty, the Donate button points people to the contact section.
 - **`instagram`**, **`facebook`**: links, or leave empty to hide them.
 - **`showStats`** and **`stats`**: turn on the "bikes fixed / given / people taught" counter once you have real numbers.
@@ -65,8 +65,6 @@ images/favicon.svg    the little panda face used as the logo and browser icon
 ## Before you launch: checklist
 
 - [ ] Put the real email in `js/site-config.js`
-- [ ] Put your town in `location`
 - [ ] Add a donation link if you have one
-- [ ] Only say donations are tax-deductible if the nonprofit is officially registered (for example, 501(c)(3) in the US)
 - [ ] Add your first bike sale or workshop to `events`
 - [ ] Give the panda a name? 🐼

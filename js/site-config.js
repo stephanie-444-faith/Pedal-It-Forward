@@ -8,10 +8,8 @@
 window.SITE = {
   // Where form messages and questions get emailed.
   // IMPORTANT: replace this with the real email address.
+  // Use an address a parent can see, since this is shown publicly on the site.
   email: "pedalitforward@example.com",
-
-  // Town / area you serve. Shown in the hero and contact section.
-  location: "Your Town, USA",
 
   // Link to your online donation page (PayPal, Venmo, GoFundMe, Zeffy, etc.).
   // Leave as "" and the Donate buttons will ask people to email you instead.
