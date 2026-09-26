@@ -11,6 +11,12 @@ window.SITE = {
   // Use an address a parent can see, since this is shown publicly on the site.
   email: "pedalitforward@example.com",
 
+  // Form back end: paste your Google Apps Script web app URL here
+  // (it ends in /exec). See backend/SETUP.md for the 10-minute setup.
+  // When this is set, form messages are saved to your Google Sheet and emailed to you.
+  // When it's "", the forms open the visitor's email app instead.
+  formEndpoint: "",
+
   // Link to your online donation page (PayPal, Venmo, GoFundMe, Zeffy, etc.).
   // Leave as "" and the Donate buttons will ask people to email you instead.
   donateUrl: "",

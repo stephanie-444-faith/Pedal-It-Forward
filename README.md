@@ -32,7 +32,14 @@ Everything else, like the words on the page, is in `index.html`. Colors and layo
 
 ## How the forms work
 
-The forms don't need a server. When someone presses **Send**, their email app opens with a message already filled out and addressed to you, and they just hit send. If you later want messages to arrive without the visitor's email app, a free service like [Formspree](https://formspree.io) can be added.
+The three forms (give a bike, get a bike, and send a message) can work two ways:
+
+- **With the back end (recommended).** Each form is saved to a Google Sheet and emailed to you, and the visitor sees a thank-you message. Setup takes about 10 minutes. Follow [backend/SETUP.md](backend/SETUP.md), then paste the web app URL into `formEndpoint` in `js/site-config.js`.
+- **Without it.** If `formEndpoint` is empty, pressing **Send** opens the visitor's email app with the message filled in, and they send it themselves.
+
+## 💚 Taking donations
+
+Money donations go through a payment service, not this website. A parent will need to create the account. Common choices are PayPal, Venmo, or GoFundMe. Some services, like Zeffy, only work for registered nonprofits. Once you have a donation page, paste its link into `donateUrl` in `js/site-config.js`, and every Donate button will go there.
 
 ## 🌐 Put it on the internet for free (GitHub Pages)
 
@@ -58,6 +65,8 @@ index.html            the whole page
 css/style.css         colors, fonts, and layout
 js/site-config.js     ← your settings (email, donate link, events, stats)
 js/main.js            menu, forms, events list, and counters
+backend/Code.gs       the form back end (runs in Google Sheets)
+backend/SETUP.md      how to set up the back end
 images/panda-bike.svg the mascot
 images/favicon.svg    the little panda face used as the logo and browser icon
 ```
@@ -65,6 +74,7 @@ images/favicon.svg    the little panda face used as the logo and browser icon
 ## Before you launch: checklist
 
 - [ ] Put the real email in `js/site-config.js`
+- [ ] Set up the form back end ([backend/SETUP.md](backend/SETUP.md)) and paste its URL into `formEndpoint`
 - [ ] Add a donation link if you have one
 - [ ] Add your first bike sale or workshop to `events`
 - [ ] Give the panda a name? 🐼

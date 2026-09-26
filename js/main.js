@@ -117,17 +117,96 @@
     if (empty) empty.hidden = upcoming.length > 0;
   }
 
-  /* ---------- Forms (open the visitor's email app, no server needed) ---------- */
+  /* ---------- Forms ----------
+   * If SITE.formEndpoint is set, forms are sent to the back end (see backend/SETUP.md).
+   * If it is empty, forms open the visitor's email app instead.
+   */
   var SUBJECTS = {
     give: "Bike donation",
     get: "Bike request",
     contact: "Message from the website",
   };
+  var THANKS = {
+    give: "Thank you! Emmett got your donation info and will reply soon about when and where to bring it.",
+    get: "Got it! Emmett will get in touch when there's a bike that fits.",
+    contact: "Thanks for your message! Emmett will write back soon.",
+  };
+  var endpoint = (S.formEndpoint || "").trim();
+
+  var fieldsOf = function (form) {
+    return $$("input, select, textarea", form).filter(function (f) {
+      return f.name && f.name !== "website" && !(f.type === "checkbox" && !f.checked);
+    });
+  };
+
+  var openEmail = function (form, status) {
+    var lines = [];
+    fieldsOf(form).forEach(function (f) {
+      var v = f.value.trim();
+      if (v) lines.push(f.name + ": " + v);
+    });
+    var subject = "Pedal It Forward: " + (SUBJECTS[form.getAttribute("data-form")] || "Website message");
+    var href = "mailto:" + encodeURIComponent(email).replace(/%40/g, "@") +
+      "?subject=" + encodeURIComponent(subject) +
+      "&body=" + encodeURIComponent(lines.join("\n") + "\n");
+    window.location.href = href;
+    status.classList.add("ok");
+    status.textContent = "Your email app should open with your message ready. Just press send! If nothing opened, email us at " + email + ".";
+  };
+
+  var sendToBackend = function (form, status, button) {
+    var type = form.getAttribute("data-form");
+    var data = new FormData();
+    data.append("form", type);
+    fieldsOf(form).forEach(function (f) { data.append(f.name, f.value.trim()); });
+    var trap = form.querySelector('[name="website"]');
+    if (trap && trap.value) data.append("website", trap.value);
+
+    var label = button.textContent;
+    button.disabled = true;
+    button.textContent = "Sending...";
+    status.textContent = "";
+
+    var controller = "AbortController" in window ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, 20000) : null;
+
+    fetch(endpoint, {
+      method: "POST",
+      body: data,
+      headers: { Accept: "application/json" },
+      signal: controller ? controller.signal : undefined,
+    })
+      .then(function (res) {
+        return res.text().then(function (text) {
+          var json = null;
+          try { json = JSON.parse(text); } catch (e) { /* not JSON */ }
+          if (!res.ok || (json && json.ok === false)) {
+            throw new Error((json && json.error) || "Request failed");
+          }
+        });
+      })
+      .then(function () {
+        form.reset();
+        status.className = "form-status ok";
+        status.textContent = THANKS[type] || "Thanks! Your message was sent.";
+      })
+      .catch(function () {
+        status.className = "form-status err";
+        status.textContent = "Sorry, that didn't go through. Please try again, or email us at " + email + ".";
+      })
+      .then(function () {
+        if (timer) clearTimeout(timer);
+        button.disabled = false;
+        button.textContent = label;
+      });
+  };
 
   $$("form[data-form]").forEach(function (form) {
     var status = $(".form-status", form);
+    var button = $('button[type="submit"]', form);
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
+      if (button.disabled) return;
       status.className = "form-status";
       status.textContent = "";
 
@@ -145,22 +224,8 @@
         return;
       }
 
-      var lines = [];
-      $$("input, select, textarea", form).forEach(function (f) {
-        if (!f.name) return;
-        if (f.type === "checkbox" && !f.checked) return;
-        var v = f.value.trim();
-        if (v) lines.push(f.name + ": " + v);
-      });
-
-      var subject = "Pedal It Forward: " + (SUBJECTS[form.getAttribute("data-form")] || "Website message");
-      var href = "mailto:" + encodeURIComponent(email).replace(/%40/g, "@") +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(lines.join("\n") + "\n");
-      window.location.href = href;
-
-      status.classList.add("ok");
-      status.textContent = "Your email app should open with your message ready. Just press send! If nothing opened, email us at " + email + ".";
+      if (endpoint) sendToBackend(form, status, button);
+      else openEmail(form, status);
     });
 
     $$("[required]", form).forEach(function (f) {
