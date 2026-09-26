@@ -17,10 +17,6 @@ window.SITE = {
   // When it's "", the forms open the visitor's email app instead.
   formEndpoint: "",
 
-  // Link to your online donation page (PayPal, Venmo, GoFundMe, Zeffy, etc.).
-  // Leave as "" and the Donate buttons will ask people to email you instead.
-  donateUrl: "",
-
   // Social links. Leave any as "" to hide it.
   instagram: "",
   facebook: "",

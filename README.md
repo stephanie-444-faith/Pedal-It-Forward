@@ -14,7 +14,6 @@ It's a plain HTML/CSS/JavaScript site. There's nothing to install and no build s
 | **Give a bike** | What we accept, plus a donation form |
 | **Get a bike** | A request form for people who need a bike |
 | **Learn to fix** | Workshop topics and the ABC Quick Check |
-| **Help buy parts** | What donations pay for, the donate button, and bike sales |
 | **Events** | Upcoming bike sales and workshops (past ones hide automatically) |
 | **Questions / Say hi** | FAQ and a contact form |
 
@@ -23,7 +22,6 @@ It's a plain HTML/CSS/JavaScript site. There's nothing to install and no build s
 Almost everything you'll change lives in **`js/site-config.js`**:
 
 - **`email`**: where form messages go. **Change this first!** It's a placeholder right now. Use an address a parent can see, since it shows on the public site.
-- **`donateUrl`**: your PayPal / Venmo / GoFundMe / Zeffy link. If it's empty, the Donate button points people to the contact section.
 - **`instagram`**, **`facebook`**: links, or leave empty to hide them.
 - **`showStats`** and **`stats`**: turn on the "bikes fixed / given / people taught" counter once you have real numbers.
 - **`events`**: add bike sales and workshops. Copy the example in the file and remove the `//` at the start of each line.
@@ -36,10 +34,6 @@ The three forms (give a bike, get a bike, and send a message) can work two ways:
 
 - **With the back end (recommended).** Each form is saved to a Google Sheet and emailed to you, and the visitor sees a thank-you message. Setup takes about 10 minutes. Follow [backend/SETUP.md](backend/SETUP.md), then paste the web app URL into `formEndpoint` in `js/site-config.js`.
 - **Without it.** If `formEndpoint` is empty, pressing **Send** opens the visitor's email app with the message filled in, and they send it themselves.
-
-## 💚 Taking donations
-
-Money donations go through a payment service, not this website. A parent will need to create the account. Common choices are PayPal, Venmo, or GoFundMe. Some services, like Zeffy, only work for registered nonprofits. Once you have a donation page, paste its link into `donateUrl` in `js/site-config.js`, and every Donate button will go there.
 
 ## 🌐 Put it on the internet for free (GitHub Pages)
 
@@ -63,7 +57,7 @@ and visit http://localhost:8000.
 ```
 index.html            the whole page
 css/style.css         colors, fonts, and layout
-js/site-config.js     ← your settings (email, donate link, events, stats)
+js/site-config.js     ← your settings (email, form back end, events, stats)
 js/main.js            menu, forms, events list, and counters
 backend/Code.gs       the form back end (runs in Google Sheets)
 backend/SETUP.md      how to set up the back end
@@ -75,6 +69,5 @@ images/favicon.svg    the little panda face used as the logo and browser icon
 
 - [ ] Put the real email in `js/site-config.js`
 - [ ] Set up the form back end ([backend/SETUP.md](backend/SETUP.md)) and paste its URL into `formEndpoint`
-- [ ] Add a donation link if you have one
 - [ ] Add your first bike sale or workshop to `events`
 - [ ] Give the panda a name? 🐼

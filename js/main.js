@@ -33,13 +33,6 @@
       li.hidden = false;
     }
   });
-  if (S.donateUrl) {
-    $$("[data-donate-link]").forEach(function (a) {
-      a.href = S.donateUrl;
-      a.target = "_blank";
-      a.rel = "noopener";
-    });
-  }
   var year = $("#year");
   if (year) year.textContent = new Date().getFullYear();
 
