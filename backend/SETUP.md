@@ -7,7 +7,7 @@ When this is set up, every form sent on the website:
 
 It's free and runs in your own Google account. Nobody else can see the Sheet unless you share it.
 
-A parent should do these steps with their own Google account, because the Sheet will hold people's names and contact info.
+Do these steps while signed in to Emmett's Google account. The Sheet will belong to him, and the form emails will go to his inbox. A parent should help, since the Sheet will hold people's names and contact info. If his account is managed with Google Family Link, a parent may need to approve the permissions in step 3.
 
 ## 1. Make the Sheet
 
@@ -19,7 +19,7 @@ A parent should do these steps with their own Google account, because the Sheet 
 1. In the Sheet, click **Extensions → Apps Script**.
 2. Delete everything in the code box.
 3. Open [`Code.gs`](Code.gs) from this folder, copy all of it, and paste it into the code box.
-4. Optional: to send the emails somewhere other than your Google account, put that address between the quotes on the `NOTIFY_EMAIL` line.
+4. Leave the `NOTIFY_EMAIL` line as it is. The emails will go to the account that owns the Sheet. To also send them to a parent, put both addresses between the quotes, separated by a comma.
 5. Click the **Save** icon.
 
 ## 3. Run setup once
